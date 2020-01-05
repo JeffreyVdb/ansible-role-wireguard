@@ -1,7 +1,4 @@
 ---
-- name: Gather instance facts
-  setup:
-
 - include_tasks: "setup-{{ ansible_distribution|lower }}.yml"
 
 - name: Install WireGuard
