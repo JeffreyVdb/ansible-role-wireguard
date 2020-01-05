@@ -24,7 +24,7 @@
 
 - name: Set WireGuard IP (without mask)
   set_fact:
-    wireguard_ip: "{{ wireguard_address.split('/') | first }}"
+    wireguard_ip: "{{ wireguard__address.split('/') | first }}"
 
 - name: Register if config/private key already exists on target host
   stat:

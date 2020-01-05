@@ -1,7 +1,7 @@
 #jinja2: lstrip_blocks:"True",trim_blocks:"True"
 [Interface]
 # {{ inventory_hostname }}
-Address = {{hostvars[inventory_hostname].wireguard_address}}
+Address = {{hostvars[inventory_hostname].wireguard__address}}
 PrivateKey = {{private_key}}
 ListenPort = {{wireguard__port}}
 {% if hostvars[inventory_hostname].wireguard_dns is defined %}
