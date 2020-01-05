@@ -3,12 +3,10 @@
 
 - name: Install WireGuard
   package:
-    name: "{{ packages }}"
+    name:
+      - wireguard-dkms
+      - wireguard-tools
     state: present
-  vars:
-    packages:
-    - wireguard-dkms
-    - wireguard-tools
   tags:
     - wg-install
 
@@ -26,7 +24,7 @@
 
 - name: Set WireGuard IP (without mask)
   set_fact:
-    wireguard_ip: "{{ wireguard_address.split('/')[0] }}"
+    wireguard_ip: "{{ wireguard_address.split('/') | first }}"
 
 - name: Register if config/private key already exists on target host
   stat:
