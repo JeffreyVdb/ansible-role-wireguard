@@ -28,7 +28,7 @@
 
 - name: Register if config/private key already exists on target host
   stat:
-    path: "{{ wireguard_remote_directory }}/{{ wireguard_interface }}.conf"
+    path: "{{ wireguard__remote_directory }}/{{ wireguard__interface }}.conf"
   register: config_file_stat
   tags:
     - wg-generate-keys
@@ -53,7 +53,7 @@
   block:
     - name: Read WireGuard config file
       slurp:
-        src: "{{ wireguard_remote_directory }}/{{ wireguard_interface }}.conf"
+        src: "{{ wireguard__remote_directory }}/{{ wireguard__interface }}.conf"
       register: wg_config
       tags:
         - wg-config
@@ -80,7 +80,7 @@
 
 - name: Create WireGuard configuration directory
   file:
-    dest: "{{ wireguard_remote_directory }}"
+    dest: "{{ wireguard__remote_directory }}"
     state: directory
     mode: 0700
   tags:
@@ -89,7 +89,7 @@
 - name: Generate WireGuard configuration file
   template:
     src: wg.conf.j2
-    dest: "{{ wireguard_remote_directory }}/{{ wireguard_interface }}.conf"
+    dest: "{{ wireguard__remote_directory }}/{{ wireguard__interface }}.conf"
     owner: root
     group: root
     mode: 0600
@@ -100,14 +100,14 @@
 
 - name: Check if reload-module-on-update is set
   stat:
-    path: "{{ wireguard_remote_directory }}/.reload-module-on-update"
+    path: "{{ wireguard__remote_directory }}/.reload-module-on-update"
   register: reload_module_on_update
   tags:
     - wg-config
 
 - name: Set WireGuard reload-module-on-update
   file:
-    dest: "{{ wireguard_remote_directory }}/.reload-module-on-update"
+    dest: "{{ wireguard__remote_directory }}/.reload-module-on-update"
     state: touch
   when: not reload_module_on_update.stat.exists
   tags:
@@ -115,6 +115,6 @@
 
 - name: Start and enable WireGuard service
   service:
-    name: "wg-quick@{{ wireguard_interface }}"
+    name: "wg-quick@{{ wireguard__interface }}"
     state: started
     enabled: yes

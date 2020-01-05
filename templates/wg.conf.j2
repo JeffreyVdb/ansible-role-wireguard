@@ -3,7 +3,7 @@
 # {{ inventory_hostname }}
 Address = {{hostvars[inventory_hostname].wireguard_address}}
 PrivateKey = {{private_key}}
-ListenPort = {{wireguard_port}}
+ListenPort = {{wireguard__port}}
 {% if hostvars[inventory_hostname].wireguard_dns is defined %}
 DNS = {{hostvars[inventory_hostname].wireguard_dns}}
 {% endif %}
@@ -45,18 +45,18 @@ SaveConfig = true
     {% if hostvars[host].wireguard_persistent_keepalive is defined %}
     PersistentKeepalive = {{hostvars[host].wireguard_persistent_keepalive}}
     {% endif %}
-    {% if hostvars[host].wireguard_port is defined and hostvars[host].wireguard_port is number %}
+    {% if hostvars[host].wireguard__port is defined and hostvars[host].wireguard__port is number %}
       {% if hostvars[host].wireguard_endpoint is defined and hostvars[host].wireguard_endpoint != "" %}
-    Endpoint = {{hostvars[host].wireguard_endpoint}}:{{hostvars[host].wireguard_port}}
+    Endpoint = {{hostvars[host].wireguard_endpoint}}:{{hostvars[host].wireguard__port}}
       {% else %}
-    Endpoint = {{host}}:{{hostvars[host].wireguard_port}}
+    Endpoint = {{host}}:{{hostvars[host].wireguard__port}}
       {% endif %}
     {% elif hostvars[host].wireguard_endpoint is defined and hostvars[host].wireguard_endpoint != "" %}
-    Endpoint = {{hostvars[host].wireguard_endpoint}}:{{wireguard_port}}
+    Endpoint = {{hostvars[host].wireguard_endpoint}}:{{wireguard__port}}
     {% elif hostvars[host].wireguard_endpoint == "" %}
     # No endpoint defined for this peer
     {% else %}
-    Endpoint = {{host}}:{{wireguard_port}}
+    Endpoint = {{host}}:{{wireguard__port}}
     {% endif %}
   {% endif %}
 {% endfor %}
