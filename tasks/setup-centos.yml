@@ -9,3 +9,20 @@
   yum:
     name: epel-release
     update_cache: yes
+
+- name: Install yum-utils
+  yum:
+    name: yum-utils
+    state: present
+
+- name: Check whether a restart is required
+  shell: needs-restarting -r | grep -q -P '\*\s+kernel\b'
+  check_mode: no
+  failed_when: false
+  changed_when: false
+  register: needs_restart
+
+- name: Fail when the server has to be restarted
+  fail:
+    msg: "A restart is required before installing wireguard"
+  when: needs_restart.rc == 0
