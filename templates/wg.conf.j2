@@ -46,14 +46,14 @@ SaveConfig = true
     PersistentKeepalive = {{hostvars[host].wireguard_persistent_keepalive}}
     {% endif %}
     {% if hostvars[host].wireguard__port is defined and hostvars[host].wireguard__port is number %}
-      {% if hostvars[host].wireguard_endpoint is defined and hostvars[host].wireguard_endpoint != "" %}
-    Endpoint = {{hostvars[host].wireguard_endpoint}}:{{hostvars[host].wireguard__port}}
+      {% if hostvars[host].wireguard__endpoint is defined and hostvars[host].wireguard__endpoint != "" %}
+    Endpoint = {{hostvars[host].wireguard__endpoint}}:{{hostvars[host].wireguard__port}}
       {% else %}
     Endpoint = {{host}}:{{hostvars[host].wireguard__port}}
       {% endif %}
-    {% elif hostvars[host].wireguard_endpoint is defined and hostvars[host].wireguard_endpoint != "" %}
-    Endpoint = {{hostvars[host].wireguard_endpoint}}:{{wireguard__port}}
-    {% elif hostvars[host].wireguard_endpoint == "" %}
+    {% elif hostvars[host].wireguard__endpoint is defined and hostvars[host].wireguard__endpoint != "" %}
+    Endpoint = {{hostvars[host].wireguard__endpoint}}:{{wireguard__port}}
+    {% elif hostvars[host].wireguard__endpoint is defined and hostvars[host].wireguard__endpoint == "" %}
     # No endpoint defined for this peer
     {% else %}
     Endpoint = {{host}}:{{wireguard__port}}
