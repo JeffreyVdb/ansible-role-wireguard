@@ -61,9 +61,11 @@ SaveConfig = true
   {% endif %}
 {% endfor %}
 
-{% for host in wireguard__extra_hosts %}
+{% if wireguard__extra_hosts is defined %}
+  {% for host in wireguard__extra_hosts %}
 [Peer]
 PublicKey = {{ host.public_key }}
 AllowedIPs = {{ host.vpn_ip }}
 
-{% endfor %}
+  {% endfor %}
+{% endif %}
